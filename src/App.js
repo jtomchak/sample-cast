@@ -1,26 +1,34 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import DivWithError from "./withError";
 
-import { Episodes } from "./services";
+import { Show } from "./services";
 
 class App extends Component {
+  state = {
+    show: {},
+    loading: false,
+    error: null
+  };
   componentDidMount() {
-    Episodes.all()
-      .then(payload => console.log(payload))
-      .catch(err => console.error(err));
+    Show.get(185226)
+      .then(result => result.json())
+      .then(payload => {
+        this.setState({
+          show: payload.show
+        });
+      })
+      .catch(err => {
+        this.setState({
+          error: err
+        });
+      });
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <DivWithError showError={this.state.error}>
+        <h1>{this.state.show.name}</h1>
+      </DivWithError>
     );
   }
 }

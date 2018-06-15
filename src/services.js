@@ -1,22 +1,26 @@
-const BASE_URL = "https://api.breaker.audio/shows/185226/episodes";
+const BASE_URL = "https://sample-cast-api.herokuapp.com/shows/";
+// 185226/episodes/29314799";
 
 let headers = new Headers({
   Accept: "application/json",
-  "User-Agent": "Breaker/1.0.0 (0)"
+  "Content-Type": "application/json"
 });
 
-const castFetch = (url, method = "GET", body = {}) =>
+const request = (url, method = "GET", body = null) =>
   fetch(url, {
     method: method,
     body: body,
-    headers: headers,
-    "cross-domain": true,
-    mode: "no-cors"
+    headers: headers
   });
 
-const Episodes = {
-  all: () => castFetch(BASE_URL),
-  id: id => castFetch(BASE_URL + id)
+const Show = {
+  get: id => request(BASE_URL + id)
 };
 
-export { Episodes };
+const Episodes = {
+  all: showId => request(BASE_URL + showId + "/episodes/"),
+  get: (showId, episodeId) =>
+    request(BASE_URL + showId + "/episodes/" + episodeId)
+};
+
+export { Show, Episodes };
