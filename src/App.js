@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
-import DivWithError from "./withError";
+import DivWithError from "./components/DivWithError";
+import Navigation from "./components/Navigation";
 
 import { Show } from "./services";
 
@@ -26,9 +26,14 @@ class App extends Component {
   }
   render() {
     return (
-      <DivWithError showError={this.state.error}>
-        <h1>{this.state.show.name}</h1>
-      </DivWithError>
+      <div>
+        <Navigation />
+        <div className="container">
+          <DivWithError showError={this.state.error}>
+            <h1>{this.state.show.name}</h1>
+          </DivWithError>
+        </div>
+      </div>
     );
   }
 }
