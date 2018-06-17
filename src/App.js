@@ -12,7 +12,8 @@ class App extends Component {
     show: {},
     episodes: [],
     loading: false,
-    error: null
+    error: null,
+    selectedEpisode: null
   };
   componentDidMount() {
     //Tackling a lot here: fetching show data AND episodes of that particular show
@@ -46,15 +47,27 @@ class App extends Component {
         });
       });
   }
+
+  handleSelectEpisode = (e, id) => {
+    this.setState(prevStat => ({
+      selectedEpisode: id
+    }));
+  };
   render() {
+    const { show, episodes, error, selectedEpisode } = this.state;
     return (
       <div>
         <Navigation />
         <div className="container-fluid">
-          <DivWithError showError={this.state.error}>
-            <h1>{this.state.show.name}</h1>
+          <DivWithError showError={error}>
+            <h1>{show.name}</h1>
+            <span>{show.description}</span>
             <div className="row">
-              <EpisodeList />
+              <EpisodeList
+                episodes={episodes}
+                onSelect={this.handleSelectEpisode}
+                selectedEpisode={selectedEpisode}
+              />
               <EpisodeDetails />
             </div>
           </DivWithError>
