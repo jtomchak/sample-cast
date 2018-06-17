@@ -5,7 +5,7 @@ class Navigation extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="/">
-          Navbar
+          Sample Cast
         </a>
         <button
           className="navbar-toggler"
