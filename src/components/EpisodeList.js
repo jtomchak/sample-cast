@@ -11,7 +11,12 @@ const EpisodeList = ({ episodes, onSelect, selectedEpisode }) => {
       onClick={event => onSelect(event, e.id)}
     >
       <div className="d-flex w-100 justify-content-between">
-        <h5 className="mb-1">{e.title}</h5>
+        <img
+          className="align-start img-fluid h-25 rounded img-thumbnail episode-thumbnail"
+          src={e.image_url}
+          alt="Generic placeholder image"
+        />
+        <h5 className="mb-1 pl-2">{e.title}</h5>
         <small className="d-none d-md-block">3 days ago</small>
       </div>
       <p
