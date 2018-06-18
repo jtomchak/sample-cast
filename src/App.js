@@ -68,7 +68,11 @@ class App extends Component {
                 onSelect={this.handleSelectEpisode}
                 selectedEpisode={selectedEpisode}
               />
-              <EpisodeDetails />
+              {selectedEpisode && (
+                <EpisodeDetails
+                  episode={episodes.find(e => e.id === selectedEpisode)}
+                />
+              )}
             </div>
           </DivWithError>
         </div>
