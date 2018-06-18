@@ -27,7 +27,7 @@ const EpisodeList = ({ episodes, onSelect, selectedEpisode }) => {
   ));
   return (
     <div className="col-xs-12 col-sm-4 col-md-4">
-      <ul className="list-group list-group-flush">{rEpisodes}</ul>
+      <ul className="list-group list-group-flush h-scroll">{rEpisodes}</ul>
     </div>
   );
 };
