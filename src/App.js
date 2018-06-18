@@ -66,14 +66,17 @@ class App extends Component {
 
   handleSaveEpisode = episodeDetails => {
     //as a PATCH save, getting object or null from form
-    console.log(episodeDetails);
     if (episodeDetails) {
       Episodes.update(
         this.state.show.id,
         this.state.selectedEpisode,
         episodeDetails
       )
-        .then(result => console.log(result))
+        .then(payload => {
+          this.setState({
+            editable: false
+          });
+        })
         .catch(err => this.setState({ error: err }));
     }
   };
