@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation";
 
 import EpisodeList from "./components/EpisodeList";
 import EpisodeDetails from "./components/EpisodeDetails";
+import EpisodeForm from "./components/EpisodeForm";
 
 import { Show, Episodes } from "./services";
 
@@ -13,7 +14,8 @@ class App extends Component {
     episodes: [],
     loading: false,
     error: null,
-    selectedEpisode: null
+    selectedEpisode: null,
+    editable: false
   };
   componentDidMount() {
     //Tackling a lot here: fetching show data AND episodes of that particular show
@@ -57,7 +59,8 @@ class App extends Component {
     );
   };
   render() {
-    const { show, episodes, error, selectedEpisode } = this.state;
+    const { show, episodes, error, selectedEpisode, editable } = this.state;
+    const currentlySelected = episodes.find(e => e.id === selectedEpisode);
     return (
       <div>
         <Navigation />
@@ -71,11 +74,12 @@ class App extends Component {
                 onSelect={this.handleSelectEpisode}
                 selectedEpisode={selectedEpisode}
               />
-              {selectedEpisode && (
-                <EpisodeDetails
-                  episode={episodes.find(e => e.id === selectedEpisode)}
-                />
-              )}
+              {selectedEpisode &&
+                (editable ? (
+                  <EpisodeForm episode={currentlySelected} />
+                ) : (
+                  <EpisodeDetails episode={currentlySelected} />
+                ))}
             </div>
           </DivWithError>
         </div>
