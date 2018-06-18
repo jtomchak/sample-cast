@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DivWithError from "./components/DivWithError";
 import Navigation from "./components/Navigation";
-
+import AudioPlayer from "./components/AudioPlayer";
 import EpisodeList from "./components/EpisodeList";
 import EpisodeDetails from "./components/EpisodeDetails";
 import EpisodeForm from "./components/EpisodeForm";
@@ -15,7 +15,8 @@ class App extends Component {
     loading: false,
     error: null,
     selectedEpisode: null,
-    editable: false
+    editable: false,
+    episodePlaying: {}
   };
 
   componentDidMount() {
@@ -80,9 +81,23 @@ class App extends Component {
         .catch(err => this.setState({ error: err }));
     }
   };
+
+  handlePlayEpisode = episodeId => {
+    this.setState({
+      episodePlaying: this.state.episodes.find(e => e.id === episodeId)
+    });
+  };
   render() {
-    const { show, episodes, error, selectedEpisode, editable } = this.state;
-    const currentlySelected = episodes.find(e => e.id === selectedEpisode);
+    const {
+      show,
+      episodes,
+      error,
+      selectedEpisode,
+      editable,
+      episodePlaying
+    } = this.state;
+    const currentlySelected =
+      episodes.find(e => e.id === selectedEpisode) || {};
     return (
       <div>
         <Navigation />
@@ -93,7 +108,12 @@ class App extends Component {
                 <h1>{show.name}</h1>
                 <span>{show.description}</span>
               </div>
-              <div className="col-8" />
+
+              <AudioPlayer
+                title={episodePlaying.title}
+                enclosureURL={episodePlaying.enclosure_url}
+                thumbNail={episodePlaying.image_url}
+              />
             </div>
             <div className="row">
               <EpisodeList
@@ -111,6 +131,7 @@ class App extends Component {
                 ) : (
                   <EpisodeDetails
                     episode={currentlySelected}
+                    playEpisode={this.handlePlayEpisode}
                     toggleEditable={this.toggleEditable}
                   />
                 ))}

@@ -13,6 +13,7 @@ ReactDOM.render(
   <Router basename={process.env.PUBLIC_URL}>
     <div>
       <Route
+        exact
         path={"/"}
         render={() => <Redirect to="/185226/episodes/29314799" />}
       />
