@@ -15,6 +15,16 @@ class EpisodeForm extends Component {
     this.props.toggleEditable();
   };
 
+  saveOnClick = e => {
+    e.preventDefault();
+    //as a PATCH save, only send episode changes, NOT entire payload
+    //return to parent either object of changes *OR* null if no changes have occured
+    const episodeChanges = objDiff(this.props.episode, this.state.episode);
+    this.props.saveEpisode(
+      Object.keys(episodeChanges).length ? episodeChanges : null
+    );
+  };
+
   render() {
     const episode = this.state.episode;
 
@@ -54,7 +64,7 @@ class EpisodeForm extends Component {
           <div className="col-2">
             <button
               className="btn float-right btn-primary"
-              onClick={this.props.toggleEditable}
+              onClick={this.saveOnClick}
             >
               Save
             </button>
@@ -64,5 +74,14 @@ class EpisodeForm extends Component {
     );
   }
 }
+
+const objDiff = (o1, o2) =>
+  Object.keys(o2).reduce((diff, key) => {
+    if (o1[key] === o2[key]) return diff;
+    return {
+      ...diff,
+      [key]: o2[key]
+    };
+  }, {});
 
 export default EpisodeForm;

@@ -14,7 +14,7 @@ const EpisodeList = ({ episodes, onSelect, selectedEpisode }) => {
         <img
           className="align-start img-fluid h-25 rounded img-thumbnail episode-thumbnail"
           src={e.image_url}
-          alt="Generic placeholder image"
+          alt="Generic placeholder"
         />
         <h5 className="mb-1 pl-2">{e.title}</h5>
         <small className="d-none d-md-block">3 days ago</small>
