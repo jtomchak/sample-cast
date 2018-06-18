@@ -6,7 +6,6 @@ class AudioPlayer extends Component {
     this.audio = React.createRef();
   }
   render() {
-    console.log(this.audio);
     return (
       <div className="col-8">
         <h5>{this.props.title}</h5>
