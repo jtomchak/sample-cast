@@ -10,7 +10,7 @@ import "./include/bootstrap";
 //App is wrapped in Router to dynamicly pass the param 'showId' as prop
 //this always App to fetch show details on init
 ReactDOM.render(
-  <Router>
+  <Router basename={process.env.PUBLIC_URL}>
     <Route path={"/:showId/episodes/:episodeId?"} component={App} />
   </Router>,
   document.getElementById("root")

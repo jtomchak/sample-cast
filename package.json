@@ -2,7 +2,7 @@
   "name": "sample-cast",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jtomchak.github.io/sample-cast",
+  "homepage": "https://jtomchak.github.io/sample-cast/",
   "dependencies": {
     "bootstrap": "^4.1.1",
     "gh-pages": "^1.2.0",
