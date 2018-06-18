@@ -89,11 +89,11 @@ class App extends Component {
         <div className="container-fluid">
           <DivWithError showError={error}>
             <div className="row">
-              <div className="col-3">
+              <div className="col-4">
                 <h1>{show.name}</h1>
                 <span>{show.description}</span>
               </div>
-              <div className="col-9" />
+              <div className="col-8" />
             </div>
             <div className="row">
               <EpisodeList
