@@ -17,6 +17,10 @@ class App extends Component {
     selectedEpisode: null,
     editable: false
   };
+
+  toggleEditable = () =>
+    this.setState(prevState => ({ editable: !prevState.editable }));
+
   componentDidMount() {
     //Tackling a lot here: fetching show data AND episodes of that particular show
     //Eventually the episode id and info will be retrieved at a higher level
@@ -53,7 +57,8 @@ class App extends Component {
   handleSelectEpisode = (e, id) => {
     this.setState(
       prevStat => ({
-        selectedEpisode: id
+        selectedEpisode: id,
+        editable: false
       }),
       () => this.props.history.push(`/${this.state.show.id}/episodes/${id}`)
     );
@@ -76,9 +81,15 @@ class App extends Component {
               />
               {selectedEpisode &&
                 (editable ? (
-                  <EpisodeForm episode={currentlySelected} />
+                  <EpisodeForm
+                    episode={currentlySelected}
+                    toggleEditable={this.toggleEditable}
+                  />
                 ) : (
-                  <EpisodeDetails episode={currentlySelected} />
+                  <EpisodeDetails
+                    episode={currentlySelected}
+                    toggleEditable={this.toggleEditable}
+                  />
                 ))}
             </div>
           </DivWithError>

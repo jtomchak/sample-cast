@@ -14,7 +14,10 @@ const EpisodeList = ({ episodes, onSelect, selectedEpisode }) => {
         <h5 className="mb-1">{e.title}</h5>
         <small className="d-none d-md-block">3 days ago</small>
       </div>
-      <p className="mb-1 d-none d-md-block">{e.description}</p>
+      <p
+        className="mb-1 d-none d-md-block"
+        dangerouslySetInnerHTML={{ __html: e.description }}
+      />
     </div>
   ));
   return (
