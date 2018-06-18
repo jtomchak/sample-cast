@@ -18,14 +18,11 @@ class App extends Component {
     editable: false
   };
 
-  toggleEditable = () =>
-    this.setState(prevState => ({ editable: !prevState.editable }));
-
   componentDidMount() {
     //Tackling a lot here: fetching show data AND episodes of that particular show
     //Eventually the episode id and info will be retrieved at a higher level
     //but for now this is the 'root' of our app
-    let showId = parseInt(this.props.match.params.showId);
+    let showId = Number(this.props.match.params.showId);
     Promise.all([Show.get(showId), Episodes.all(showId)])
       .then(values => {
         return Promise.all([values[0].json(), values[1].json()]);
@@ -54,6 +51,9 @@ class App extends Component {
       });
   }
 
+  toggleEditable = () =>
+    this.setState(prevState => ({ editable: !prevState.editable }));
+
   handleSelectEpisode = (e, id) => {
     this.setState(
       prevStat => ({
@@ -63,6 +63,20 @@ class App extends Component {
       () => this.props.history.push(`/${this.state.show.id}/episodes/${id}`)
     );
   };
+
+  handleSaveEpisode = episodeDetails => {
+    //as a PATCH save, getting object or null from form
+    console.log(episodeDetails);
+    if (episodeDetails) {
+      Episodes.update(
+        this.state.show.id,
+        this.state.selectedEpisode,
+        episodeDetails
+      )
+        .then(result => console.log(result))
+        .catch(err => this.setState({ error: err }));
+    }
+  };
   render() {
     const { show, episodes, error, selectedEpisode, editable } = this.state;
     const currentlySelected = episodes.find(e => e.id === selectedEpisode);
@@ -71,8 +85,13 @@ class App extends Component {
         <Navigation />
         <div className="container-fluid">
           <DivWithError showError={error}>
-            <h1>{show.name}</h1>
-            <span>{show.description}</span>
+            <div className="row">
+              <div className="col-3">
+                <h1>{show.name}</h1>
+                <span>{show.description}</span>
+              </div>
+              <div className="col-9" />
+            </div>
             <div className="row">
               <EpisodeList
                 episodes={episodes}
@@ -83,6 +102,7 @@ class App extends Component {
                 (editable ? (
                   <EpisodeForm
                     episode={currentlySelected}
+                    saveEpisode={this.handleSaveEpisode}
                     toggleEditable={this.toggleEditable}
                   />
                 ) : (
@@ -91,6 +111,11 @@ class App extends Component {
                     toggleEditable={this.toggleEditable}
                   />
                 ))}
+              {!selectedEpisode && (
+                <h5 className="col-8">
+                  <span>Select an Episode for Details</span>
+                </h5>
+              )}
             </div>
           </DivWithError>
         </div>

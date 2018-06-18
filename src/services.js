@@ -20,7 +20,13 @@ const Show = {
 const Episodes = {
   all: showId => request(BASE_URL + showId + "/episodes/"),
   get: (showId, episodeId) =>
-    request(BASE_URL + showId + "/episodes/" + episodeId)
+    request(BASE_URL + showId + "/episodes/" + episodeId),
+  update: (showId, episodeId, payload) =>
+    request(
+      BASE_URL + showId + "/episodes/" + episodeId,
+      "PATCH",
+      JSON.stringify(payload)
+    )
 };
 
 export { Show, Episodes };
