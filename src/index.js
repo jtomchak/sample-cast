@@ -11,7 +11,7 @@ import "./include/bootstrap";
 //this always App to fetch show details on init
 ReactDOM.render(
   <Router>
-    <Route path={"/:showId"} component={App} />
+    <Route path={"/:showId/episodes/:episodeId?"} component={App} />
   </Router>,
   document.getElementById("root")
 );

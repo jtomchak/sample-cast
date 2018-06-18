@@ -49,9 +49,12 @@ class App extends Component {
   }
 
   handleSelectEpisode = (e, id) => {
-    this.setState(prevStat => ({
-      selectedEpisode: id
-    }));
+    this.setState(
+      prevStat => ({
+        selectedEpisode: id
+      }),
+      () => this.props.history.push(`/${this.state.show.id}/episodes/${id}`)
+    );
   };
   render() {
     const { show, episodes, error, selectedEpisode } = this.state;
