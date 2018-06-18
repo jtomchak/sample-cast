@@ -2,7 +2,12 @@
 
 ### Goals
 
-    > Build two webpages: one for a single episode of a podcast and one to edit that episode. The episode page should include relevant information about the episode, including the episode title, artwork, description, date published, etc. as well as a link to edit the episode. The fields for the title, artwork, description, etc. should all be editable.
+    > Build two webpages: one for a single episode of a podcast and one to edit
+    > that episode.
+    > The episode page should include relevant information about the episode,
+    > including the episode title, artwork, description, date published,
+    > etc. as well as a link to edit the episode. The fields for the title, artwork, description, etc.
+    > should all be editable.
 
     > The episode webpage should include an audio player that allows users to see the episode playback progress as well as buttons to play, pause, skip ahead, and skip back. When editing the episode, the web player should still be visible and continue playing the episode.
 
